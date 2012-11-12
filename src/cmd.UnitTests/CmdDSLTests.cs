@@ -36,5 +36,17 @@ namespace cmd.UnitTests
         {
             cmd.Git().Clone("http://github.com/manojlds/cmd")();
         }
+
+        [Test]
+        public void ShouldBeAbleToPassFlags()
+        {
+            cmd.Git().Pull(r: true);
+        }
+
+        [Test]
+        public void ShouldBeAbleToPassArgumentstoFlags()
+        {
+            cmd.Git().Checkout(b: "master");
+        }
     }
 }
