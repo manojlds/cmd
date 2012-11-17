@@ -1,4 +1,6 @@
-﻿using NUnit.Framework;
+﻿using Moq;
+using NUnit.Framework;
+using cmd.Runner;
 
 namespace cmd.UnitTests
 {
@@ -6,11 +8,14 @@ namespace cmd.UnitTests
     public class CmdDslTests
     {
         private dynamic cmd;
+        private Mock<IRunner> mockRunner;
 
         [SetUp]
         public void SetUp()
         {
-            cmd = new Cmd();
+            mockRunner = new Mock<IRunner>();
+            mockRunner.Setup(runner => runner.Run(It.IsAny<RunOptions>())).Returns("result");
+            cmd = new Cmd(mockRunner.Object);
         }
 
         [Test]
@@ -23,6 +28,12 @@ namespace cmd.UnitTests
         public void ShouldBeAbleToCallArbitrarySubCommandOnCommandRunningOnCmd()
         {
             cmd.Git().Clone();
+        }
+
+        [Test]
+        public void ShouldBeAbleToUseThePropertyNotationToIndicateCommand()
+        {
+            cmd.Git.Clone();
         }
 
         [Test]

@@ -27,6 +27,13 @@ namespace cmd
             get { return string.Join(" ", commands.Skip(1).Concat(arguments.Select(argument => argument.ToString()))); }
         }
 
+        public override bool TryGetMember(GetMemberBinder binder, out object result)
+        {
+            commands.Add(binder.Name);
+            result = this;
+            return true;
+        }
+
         public override bool TryInvokeMember(InvokeMemberBinder binder, object[] args, out object result)
         {
             var names = binder.CallInfo.ArgumentNames;
@@ -37,13 +44,18 @@ namespace cmd
             arguments.AddRange(allNames.Zip(args, (flag, value) => new Argument(flag, value)));
 
             commands.Add(binder.Name);
-
             result = this;
             return true;
         }
 
         public override bool TryInvoke(InvokeBinder binder, object[] args, out object result)
         {
+            if (!commands.Any())
+            {
+                result = null;
+                return true;
+            }
+
             var runOptions = new RunOptions(this);
             result = Runner.Run(runOptions);
             return true;
