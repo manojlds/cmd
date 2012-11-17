@@ -29,9 +29,9 @@
 
         public override string ToString()
         {
+            if (string.IsNullOrEmpty(Flag) && string.IsNullOrEmpty(Value)) return null;
             if (string.IsNullOrEmpty(Flag)) return Value;
-            if (string.IsNullOrEmpty(Value)) return Flag;
-            return string.Format("{0} {1}", Flag, Value);
+            return string.IsNullOrEmpty(Value) ? Flag : string.Format("{0} {1}", Flag, Value);
         }
 
         public static implicit operator string(Argument argument)

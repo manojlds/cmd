@@ -69,6 +69,5 @@ namespace cmd.UnitTests
 
             Assert.That(cmd.Arguments, Is.EqualTo("Branch -a"));
         }
-        
     }
 }

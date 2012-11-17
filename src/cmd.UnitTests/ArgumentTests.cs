@@ -39,5 +39,19 @@ namespace cmd.UnitTests
             var argument = new Argument("flag", "val");
             Assert.That(argument.ToString(), Is.EqualTo("--flag val"));
         }
+
+        [Test]
+        public void ShouldBeNullIfFlagAndValueAreNull()
+        {
+            var argument = new Argument(null, null);
+            Assert.That(argument.ToString(), Is.Null);
+        }
+
+        [Test]
+        public void ShouldBeNullIfFlagIsNullAndValueIsNotString()
+        {
+            var argument = new Argument(null, new object());
+            Assert.That(argument.ToString(), Is.Null);
+        }
     }
 }

@@ -24,7 +24,7 @@ namespace cmd
 
         public string Arguments
         {
-            get { return string.Join(" ", commands.Skip(1).Concat(arguments.Select(argument => argument.ToString()))); }
+            get { return string.Join(" ", commands.Skip(1).Concat(arguments.Select(argument => argument.ToString()).Where(s => !string.IsNullOrEmpty(s)))); }
         }
 
         public override bool TryGetMember(GetMemberBinder binder, out object result)
