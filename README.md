@@ -12,11 +12,15 @@ Or, you can build it from source.
 
 Create a dynamic instance of Cmd:
 
-    dynamic cmd = new Cmd();
+```csharp
+dynamic cmd = new Cmd();
+```
 
 Now, you can call commands off cmd:
 
-    cmd.git.clone("http://github.com/manojlds/cmd")();
+```csharp
+cmd.git.clone("http://github.com/manojlds/cmd")();
+```
 
 The above would be equivalent to `git clone http://github.com/manojlds/cmd`.
 
@@ -24,13 +28,17 @@ Note the `()` at the end which actually executes the command. ( yeah it's not ni
 
 You can pass flags by naming the arguments:
 
-    cmd.git.log(grep: "test")();
+```csharp
+cmd.git.log(grep: "test")();
+```
 
 The above would be equivalent to `git log --grep test`
 
 Or:
 
-    cmd.git.branch(a: true)();
+```csharp
+cmd.git.branch(a: true)();
+```
 
 which would be equivalent to `git branch -a`
 
@@ -41,4 +49,3 @@ Also, non-string values are ignored and if there is no flag, the argument is not
 **What's ahead?**
 
 cmd is in a very nascent stage. More `sh` like goodness coming soon.
-
