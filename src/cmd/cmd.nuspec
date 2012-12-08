@@ -2,7 +2,7 @@
 <package >
   <metadata>
     <id>$id$</id>
-    <version>0.1.0-alpha</version>
+    <version>0.1.0</version>
     <title>cmd</title>
     <authors>manojlds</authors>
     <owners>manojlds</owners>
