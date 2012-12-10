@@ -19,17 +19,15 @@ dynamic cmd = new Cmd();
 Now, you can call commands off cmd:
 
 ```csharp
-cmd.git.clone("http://github.com/manojlds/cmd")();
+cmd.git.clone("http://github.com/manojlds/cmd");
 ```
 
 The above would be equivalent to `git clone http://github.com/manojlds/cmd`.
 
-Note the `()` at the end which actually executes the command. ( yeah it's not nice. Send pull request if you have a better way.)
-
 You can pass flags by naming the arguments:
 
 ```csharp
-cmd.git.log(grep: "test")();
+cmd.git.log(grep: "test");
 ```
 
 The above would be equivalent to `git log --grep test`
@@ -37,7 +35,7 @@ The above would be equivalent to `git log --grep test`
 Or:
 
 ```csharp
-cmd.git.branch(a: true)();
+cmd.git.branch(a: true);
 ```
 
 which would be equivalent to `git branch -a`
@@ -45,6 +43,15 @@ which would be equivalent to `git branch -a`
 Note that single character flags are mapped as `-<flag>` and multi-character ones are mapped as `--<flag>`
 
 Also, non-string values are ignored and if there is no flag, the argument is not considered.
+
+You can call multiple commands off the same instance of cmd:
+
+```csharp
+var gitOutput = cmd.git();
+var svnOutput = cmd.svn();
+```
+
+Note that the commands can be case sensitive, and as such `cmd.git` is not same as, say, `cmd.Git`.
 
 **What's ahead?**
 
