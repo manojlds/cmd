@@ -1,11 +1,11 @@
 ﻿namespace cmd.Runner
 {
-    public class RunOptions
+    internal class RunOptions : IRunOptions
     {
-        public RunOptions(Cmd cmd)
+        public RunOptions(Commando commando)
         {
-            Command = cmd.Command;
-            Arguments = cmd.Arguments;
+            Command = commando.Command;
+            Arguments = commando.Arguments;
         }
 
         public string Command { get; set; }

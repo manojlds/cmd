@@ -14,50 +14,65 @@ namespace cmd.UnitTests
         public void SetUp()
         {
             mockRunner = new Mock<IRunner>();
-            mockRunner.Setup(runner => runner.Run(It.IsAny<RunOptions>())).Returns("result");
+            mockRunner.Setup(runner => runner.Run(It.IsAny<IRunOptions>())).Returns("result");
             cmd = new Cmd(mockRunner.Object);
         }
 
         [Test]
         public void ShouldBeAbleToCallArbitraryCommandOnCmd()
         {
-            cmd.Git();
+            cmd.git();
         }
 
         [Test]
-        public void ShouldBeAbleToCallArbitrarySubCommandOnCommandRunningOnCmd()
+        public void ShouldBeAbleToCallArbitrarySubCommand()
         {
-            cmd.Git().Clone();
+            var clone = cmd.git.clone;
         }
 
         [Test]
-        public void ShouldBeAbleToUseThePropertyNotationToIndicateCommand()
+        public void ShouldBeAbleToExecuteWithSubCommand()
         {
-            cmd.Git.Clone();
+            cmd.git.Clone();
         }
 
         [Test]
         public void ShouldBeAbleToPassArgumentsToACommand()
         {
-            cmd.Git().Clone("http://github.com/manojlds/cmd");
-        }
-
-        [Test]
-        public void ShouldBeAbleToTriggerComandExecutionWithParanthses()
-        {
-            cmd.Git().Clone("http://github.com/manojlds/cmd")();
+            cmd.Git.Clone("http://github.com/manojlds/cmd");
         }
 
         [Test]
         public void ShouldBeAbleToPassFlags()
         {
-            cmd.Git().Pull(r: true);
+            cmd.Git.Pull(r: true);
         }
 
         [Test]
         public void ShouldBeAbleToPassArgumentstoFlags()
         {
-            cmd.Git().Checkout(b: "master");
+            cmd.Git.Checkout(b: "master");
+        }
+
+        [Test]
+        public void ShouldBeAbleToPreBuildACommandAndThenExecuteIt()
+        {
+            var git = cmd.git;
+            git.Clone();
+        }
+
+        [Test]
+        public void ShouldBeAbleToBuildMultipleCommandOnCmd()
+        {
+            var git = cmd.git;
+            var svn = cmd.svn;
+        }
+
+        [Test]
+        public void ShouldBeAbleToRunMultipleCommandOnCmd()
+        {
+            cmd.git();
+            cmd.svn();
         }
     }
 }

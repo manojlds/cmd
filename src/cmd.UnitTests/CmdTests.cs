@@ -9,7 +9,6 @@ namespace cmd.UnitTests
     {
         private dynamic cmd;
         private Mock<IRunner> mockRunner;
-        private const string Output ="output";
 
         [SetUp]
         public void SetUp()
@@ -19,55 +18,38 @@ namespace cmd.UnitTests
         }
 
         [Test]
-        public void InvokingWithoutProvidingCommandShouldBeANoOp()
+        public void ShouldBeAbleToBuildACommandAsProperty()
         {
-            string result = cmd();
-            Assert.That(result, Is.EqualTo(null));
+            var commando = cmd.git;
+
+            Assert.That(commando, Is.Not.Null);
         }
 
         [Test]
-        public void InvokingACommandShouldExecuteIt()
+        public void ShouldCreateCommandWithRunner()
         {
-            RunOptions runOptionsPassedToRunner = null;
-            mockRunner.Setup(runner => runner.Run(It.IsAny<RunOptions>())).Callback<RunOptions>(runOptions => { runOptionsPassedToRunner = runOptions; }).Returns(Output);
+            cmd.git();
 
-            string result = cmd.Git()();
-            
-            Assert.That(result, Is.EqualTo(Output));
-            Assert.That(runOptionsPassedToRunner.Command, Is.EqualTo("Git"));
+            mockRunner.Verify(runner => runner.Run(It.IsAny<IRunOptions>()), Times.Once());
         }
 
         [Test]
-        public void ShouldBeAbleToAddCommandAsProperty()
+        public void ShouldBeAbleToBuildMultipleCommandsOnCmd()
         {
-            cmd.Git.Status();
+            var git = cmd.git;
+            var svn = cmd.svn;
 
-            Assert.That(cmd.Command, Is.EqualTo("Git"));
-            Assert.That(cmd.Arguments, Is.EqualTo("Status"));
+            Assert.That(git, Is.Not.EqualTo(svn));
         }
 
         [Test]
-        public void ShouldAddArgumentWithOnlyValue()
+        public void ShouldBeAbleToRunMultipleCommandsOnCmd()
         {
-            cmd.Git.Branch("branch1");
+            cmd.git();
+            cmd.svn();
 
-            Assert.That(cmd.Arguments, Is.EqualTo("Branch branch1"));
-        }
-
-        [Test]
-        public void ShouldAddArgumentsWithFlagAndValue()
-        {
-            cmd.Git.Log(grep: "test");
-
-            Assert.That(cmd.Arguments, Is.EqualTo("Log --grep test"));
-        }
-
-        [Test]
-        public void ShouldAddArgumentsWithFlagOnly()
-        {
-            cmd.Git.Branch(a: true);
-
-            Assert.That(cmd.Arguments, Is.EqualTo("Branch -a"));
+            mockRunner.Verify(runner => runner.Run(It.Is<IRunOptions>(options => options.Command == "git")), Times.Once());
+            mockRunner.Verify(runner => runner.Run(It.Is<IRunOptions>(options => options.Command == "svn")), Times.Once());
         }
     }
 }

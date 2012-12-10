@@ -2,6 +2,6 @@
 {
     public interface IRunner
     {
-        string Run(RunOptions runOptions);
+        string Run(IRunOptions runOptions);
     }
 }

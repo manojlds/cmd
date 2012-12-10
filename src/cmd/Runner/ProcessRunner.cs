@@ -2,9 +2,9 @@
 
 namespace cmd.Runner
 {
-    public class ProcessRunner : IRunner
+    internal class ProcessRunner : IRunner
     {
-        public string Run(RunOptions runOptions)
+        public string Run(IRunOptions runOptions)
         {
             var process = new Process
                         {

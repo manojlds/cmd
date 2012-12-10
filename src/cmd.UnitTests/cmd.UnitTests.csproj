@@ -48,6 +48,7 @@
     <Compile Include="ArgumentTests.cs" />
     <Compile Include="CmdDSLTests.cs" />
     <Compile Include="CmdTests.cs" />
+    <Compile Include="CommandoTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
