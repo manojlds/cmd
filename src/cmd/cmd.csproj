@@ -48,7 +48,13 @@
     <Compile Include="Runner\ProcessRunner.cs" />
     <Compile Include="Runner\RunOptions.cs" />
   </ItemGroup>
+  <ItemGroup>
+    <None Include="cmd.nuspec" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <PropertyGroup>
+    <PostBuildEvent>nuget pack $(ProjectDir)\$(ProjectFileName) -prop configuration=release</PostBuildEvent>
+  </PropertyGroup>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">
