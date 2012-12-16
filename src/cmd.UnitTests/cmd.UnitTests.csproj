@@ -47,12 +47,12 @@
   <ItemGroup>
     <Compile Include="CmdDSLTests.cs" />
     <Compile Include="CmdTests.cs" />
-    <Compile Include="CommandoTests.cs" />
+    <Compile Include="Commands\CommandoTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Runner\Arguments\ArgumentBuilderTests.cs" />
     <Compile Include="Runner\Arguments\CmdArgumentBuilderTests.cs" />
-    <Compile Include="Shells\CmdShellTests.cs" />
-    <Compile Include="Shells\ShellTests.cs" />
+    <Compile Include="Runner\Shells\CmdShellTests.cs" />
+    <Compile Include="Runner\Shells\ShellTests.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

@@ -1,10 +1,10 @@
-﻿using Moq;
+using Moq;
 using NUnit.Framework;
 using cmd.Commands;
 using cmd.Runner;
 using cmd.Runner.Arguments;
 
-namespace cmd.UnitTests
+namespace cmd.UnitTests.Commands
 {
     [TestFixture]
     class CommandoTests

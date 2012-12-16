@@ -1,8 +1,7 @@
-﻿using NUnit.Framework;
-using cmd.Runner;
+using NUnit.Framework;
 using cmd.Runner.Shells;
 
-namespace cmd.UnitTests.Shells
+namespace cmd.UnitTests.Runner.Shells
 {
     [TestFixture]
     class ShellTests
