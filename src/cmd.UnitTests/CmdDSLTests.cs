@@ -2,6 +2,7 @@
 using NUnit.Framework;
 using cmd.Commands;
 using cmd.Runner;
+using cmd.Runner.Shells;
 
 namespace cmd.UnitTests
 {
@@ -10,13 +11,11 @@ namespace cmd.UnitTests
     {
         private dynamic cmd;
         private Mock<IRunner> mockRunner;
-        private Mock<ICommando> mockCommando;
 
         [SetUp]
         public void SetUp()
         {
             mockRunner = new Mock<IRunner>();
-            mockCommando = new Mock<ICommando>();
             mockRunner.Setup(runner => runner.Run(It.IsAny<IRunOptions>())).Returns("result");
             mockRunner.Setup(runner => runner.GetCommand()).Returns(new Commando(mockRunner.Object));
             cmd = new Cmd(mockRunner.Object);
@@ -77,6 +76,12 @@ namespace cmd.UnitTests
         {
             cmd.git();
             cmd.svn();
+        }
+
+        [Test]
+        public void ShouldBeAbleToChooseADifferentShell()
+        {
+            dynamic cmd = new Cmd(Shell.Cmd);
         }
     }
 }
