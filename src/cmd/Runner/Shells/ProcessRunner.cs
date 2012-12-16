@@ -1,5 +1,6 @@
 using System;
 using System.Diagnostics;
+using cmd.Commands;
 using cmd.Runner.Arguments;
 
 namespace cmd.Runner.Shells
@@ -16,6 +17,11 @@ namespace cmd.Runner.Shells
         public string BuildArgument(Argument argument)
         {
             return ArgumentBuilder.Build(argument);
+        }
+
+        public virtual ICommando GetCommand()
+        {
+            return new Commando(this);
         }
 
         public virtual string Run(IRunOptions runOptions)

@@ -1,4 +1,6 @@
-﻿namespace cmd.Runner
+﻿using cmd.Commands;
+
+namespace cmd.Runner
 {
     internal class RunOptions : IRunOptions
     {

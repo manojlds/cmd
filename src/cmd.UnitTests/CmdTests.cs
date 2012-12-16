@@ -1,5 +1,6 @@
 ﻿using Moq;
 using NUnit.Framework;
+using cmd.Commands;
 using cmd.Runner;
 
 namespace cmd.UnitTests
@@ -14,6 +15,7 @@ namespace cmd.UnitTests
         public void SetUp()
         {
             mockRunner = new Mock<IRunner>();
+            mockRunner.Setup(runner => runner.GetCommand()).Returns(new Commando(mockRunner.Object));
             cmd = new Cmd(mockRunner.Object);
         }
 
@@ -36,7 +38,9 @@ namespace cmd.UnitTests
         [Test]
         public void ShouldBeAbleToBuildMultipleCommandsOnCmd()
         {
+            mockRunner.Setup(runner => runner.GetCommand()).Returns(new Commando(mockRunner.Object));
             var git = cmd.git;
+            mockRunner.Setup(runner => runner.GetCommand()).Returns(new Commando(mockRunner.Object));
             var svn = cmd.svn;
 
             Assert.That(git, Is.Not.EqualTo(svn));
@@ -45,7 +49,9 @@ namespace cmd.UnitTests
         [Test]
         public void ShouldBeAbleToRunMultipleCommandsOnCmd()
         {
+            mockRunner.Setup(runner => runner.GetCommand()).Returns(new Commando(mockRunner.Object));
             cmd.git();
+            mockRunner.Setup(runner => runner.GetCommand()).Returns(new Commando(mockRunner.Object));
             cmd.svn();
 
             mockRunner.Verify(runner => runner.Run(It.Is<IRunOptions>(options => options.Command == "git")), Times.Once());

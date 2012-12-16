@@ -1,5 +1,6 @@
 ﻿using Moq;
 using NUnit.Framework;
+using cmd.Commands;
 using cmd.Runner;
 using cmd.Runner.Arguments;
 
@@ -15,6 +16,7 @@ namespace cmd.UnitTests
         public void SetUp()
         {
             mockRunner = new Mock<IRunner>();
+            mockRunner.Setup(runner => runner.GetCommand()).Returns(new Commando(mockRunner.Object));
             cmd = new Cmd(mockRunner.Object);
         }
 

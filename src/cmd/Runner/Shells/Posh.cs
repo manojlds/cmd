@@ -1,3 +1,4 @@
+using cmd.Commands;
 using cmd.Runner.Arguments;
 
 namespace cmd.Runner.Shells
@@ -10,6 +11,11 @@ namespace cmd.Runner.Shells
         }
 
         public string BuildArgument(Argument argument)
+        {
+            throw new System.NotImplementedException();
+        }
+
+        public ICommando GetCommand()
         {
             throw new System.NotImplementedException();
         }

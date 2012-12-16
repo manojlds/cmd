@@ -1,25 +1,25 @@
-﻿using System.Collections.Generic;
+using System.Collections.Generic;
 using System.Dynamic;
 using System.Linq;
 using cmd.Runner;
 using cmd.Runner.Arguments;
 using cmd.Runner.Shells;
 
-namespace cmd
+namespace cmd.Commands
 {
-    internal class Commando : DynamicObject
+    internal class Commando : DynamicObject, ICommando
     {
-        private readonly List<string> commands = new List<string>();
-        private readonly List<Argument> arguments = new List<Argument>();
+        protected readonly List<string> commands = new List<string>();
+        protected readonly List<Argument> arguments = new List<Argument>();
 
-        private IRunner Runner { get; set; }
+        protected IRunner Runner { get; set; }
 
         public Commando(IRunner runner = null)
         {
             Runner = runner ?? new ProcessRunner();
         }
 
-        public string Command
+        public virtual string Command
         {
             get { return commands.First(); }
         }
