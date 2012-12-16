@@ -1,5 +1,6 @@
 ﻿using System.Dynamic;
 using cmd.Runner;
+using cmd.Runner.Shells;
 
 namespace cmd
 {
@@ -9,7 +10,7 @@ namespace cmd
 
         public Cmd(IRunner runner = null)
         {
-            Runner = runner ?? new ProcessRunner();
+            Runner = runner ?? Shell.Default;
         }
 
         public override bool TryGetMember(GetMemberBinder binder, out object result)

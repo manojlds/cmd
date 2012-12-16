@@ -3,6 +3,7 @@ using System.Dynamic;
 using System.Linq;
 using cmd.Runner;
 using cmd.Runner.Arguments;
+using cmd.Runner.Shells;
 
 namespace cmd
 {

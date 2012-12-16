@@ -48,10 +48,10 @@
     <Compile Include="Runner\Arguments\IArgumentBuilder.cs" />
     <Compile Include="Runner\IRunner.cs" />
     <Compile Include="Runner\IRunOptions.cs" />
-    <Compile Include="Runner\ProcessRunner.cs" />
     <Compile Include="Runner\RunOptions.cs" />
     <Compile Include="Runner\Shells\CmdShell.cs" />
     <Compile Include="Runner\Shells\Posh.cs" />
+    <Compile Include="Runner\Shells\ProcessRunner.cs" />
     <Compile Include="Runner\Shells\Shell.cs" />
   </ItemGroup>
   <ItemGroup>

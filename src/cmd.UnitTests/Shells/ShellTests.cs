@@ -1,4 +1,5 @@
 ﻿using NUnit.Framework;
+using cmd.Runner;
 using cmd.Runner.Shells;
 
 namespace cmd.UnitTests.Shells
@@ -6,6 +7,12 @@ namespace cmd.UnitTests.Shells
     [TestFixture]
     class ShellTests
     {
+        [Test]
+        public void ShouldReturnAProcessRunnerAsDEfaul()
+        {
+            Assert.That(Shell.Default as ProcessRunner, Is.Not.Null);
+        }
+        
         [Test]
         public void ShouldReturnACmdShellRunner()
         {

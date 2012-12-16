@@ -1,8 +1,8 @@
-﻿using System;
+using System;
 using System.Diagnostics;
 using cmd.Runner.Arguments;
 
-namespace cmd.Runner
+namespace cmd.Runner.Shells
 {
     internal class ProcessRunner : IRunner
     {
