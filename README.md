@@ -53,6 +53,21 @@ var svnOutput = cmd.svn();
 
 Note that the commands can be case sensitive, and as such `cmd.git` is not same as, say, `cmd.Git`.
 
+**Shells**
+
+You can use cmd to run command on, well, cmd and Powershell. Choose the shell you want to use while creating cmd:
+
+```csharp
+dynamic cmd = new Cmd(Shell.Cmd);
+dynamic posh = new Cmd(Shell.Powershell);
+cmd.dir();
+```
+`cmd.dir()` is equivalent to `cmd /c dir`
+
+When using `Shell.Cmd`, flags are constructed using `/` instead of `-` and `--`
+
+Powershell support is still a work in progress.
+
 **What's ahead?**
 
 cmd is in a very nascent stage. More `sh` like goodness coming soon.
