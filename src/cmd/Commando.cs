@@ -2,6 +2,7 @@
 using System.Dynamic;
 using System.Linq;
 using cmd.Runner;
+using cmd.Runner.Arguments;
 
 namespace cmd
 {
@@ -11,7 +12,6 @@ namespace cmd
         private readonly List<Argument> arguments = new List<Argument>();
 
         private IRunner Runner { get; set; }
-
 
         public Commando(IRunner runner = null)
         {
@@ -25,7 +25,7 @@ namespace cmd
 
         public string Arguments
         {
-            get { return string.Join(" ", commands.Skip(1).Concat(arguments.Select(argument => argument.ToString()).Where(s => !string.IsNullOrEmpty(s)))); }
+            get { return string.Join(" ", commands.Skip(1).Concat(arguments.Select(argument => Runner.BuildArgument(argument)).Where(s => !string.IsNullOrEmpty(s)))); }
         }
 
         public void AddCommand(string command)

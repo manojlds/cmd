@@ -1,10 +1,24 @@
-﻿using System.Diagnostics;
+﻿using System;
+using System.Diagnostics;
+using cmd.Runner.Arguments;
 
 namespace cmd.Runner
 {
     internal class ProcessRunner : IRunner
     {
-        public string Run(IRunOptions runOptions)
+        private readonly Lazy<IArgumentBuilder> argumentBuilder = new Lazy<IArgumentBuilder>(() => new ArgumentBuilder());
+
+        protected virtual IArgumentBuilder ArgumentBuilder
+        {
+            get { return argumentBuilder.Value; }
+        }
+
+        public string BuildArgument(Argument argument)
+        {
+            return ArgumentBuilder.Build(argument);
+        }
+
+        public virtual string Run(IRunOptions runOptions)
         {
             var process = new Process
                         {

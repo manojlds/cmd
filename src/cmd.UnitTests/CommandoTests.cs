@@ -1,6 +1,7 @@
 ﻿using Moq;
 using NUnit.Framework;
 using cmd.Runner;
+using cmd.Runner.Arguments;
 
 namespace cmd.UnitTests
 {
@@ -69,7 +70,9 @@ namespace cmd.UnitTests
         [Test]
         public void ShouldBeAbleToRunWithArgumentsOnCommand()
         {
+            const string Argument = "--help";
             IRunOptions expectedRunOptions = null;
+            mockRunner.Setup(runner => runner.BuildArgument(It.IsAny<Argument>())).Returns(Argument);
             mockRunner.Setup(runner => runner.Run(It.IsAny<IRunOptions>())).Callback<IRunOptions>(options =>
             {
                 expectedRunOptions
@@ -80,24 +83,27 @@ namespace cmd.UnitTests
 
             Assert.That(expectedRunOptions, Is.Not.Null);
             Assert.That(expectedRunOptions.Command, Is.EqualTo("git"));
-            Assert.That(expectedRunOptions.Arguments, Is.EqualTo("--help"));
+            Assert.That(expectedRunOptions.Arguments, Is.EqualTo(Argument));
         }
 
         [Test]
         public void ShouldBeAbleToRunWithArgumentsOnSubCommand()
         {
+            const string Argument = "https://github.com/manojlds/cmd";
             IRunOptions expectedRunOptions = null;
+            mockRunner.Setup(runner => runner.BuildArgument(It.IsAny<Argument>()))
+                      .Returns(Argument);
             mockRunner.Setup(runner => runner.Run(It.IsAny<IRunOptions>())).Callback<IRunOptions>(options =>
             {
                 expectedRunOptions
                     = options;
             });
 
-            cmd.git.clone("https://github.com/manojlds/cmd");
+            cmd.git.clone(Argument);
 
             Assert.That(expectedRunOptions, Is.Not.Null);
             Assert.That(expectedRunOptions.Command, Is.EqualTo("git"));
-            Assert.That(expectedRunOptions.Arguments, Is.EqualTo("clone https://github.com/manojlds/cmd"));
+            Assert.That(expectedRunOptions.Arguments, Is.EqualTo(string.Concat("clone ",Argument)));
         }
 
         [Test, Ignore]
