@@ -5,7 +5,12 @@ namespace cmd.Runner.Arguments
         public Argument(string flag, object value)
         {
             Flag = flag;
-            Value = value as string;
+            string tmp = value as string;
+            if (tmp != null)
+            {
+                Value = System.Environment.ExpandEnvironmentVariables(tmp);
+            }
+
         }
 
         public Argument(object value) : this(null, value)
