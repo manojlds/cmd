@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <package >
   <metadata>
-    <id>$id$</id>
+    <id>cmd</id>
     <version>0.2.0</version>
     <title>cmd</title>
     <authors>manojlds</authors>
@@ -14,4 +14,8 @@
     <copyright>Copyright 2012</copyright>
     <tags>cmd external program process commandline exec</tags>
   </metadata>
+  <files>
+        <file src="cmd.pdb" target="lib\net40\" />
+        <file src="cmd.dll" target="lib\net40\" />
+    </files>
 </package>

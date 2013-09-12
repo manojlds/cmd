@@ -1,0 +1,12 @@
+conventions:
+    artifactsDir: "$rootDir/build"
+
+install:
+    cmd: 
+        tasks:
+            NugetPublish:
+                config:
+                    #configuration needed to install the application
+                    packages: ["cmd.*.nupkg"]
+                    #source can be local directory path or nuget feed url or nuget source name
+                    source: "C:/packages"
