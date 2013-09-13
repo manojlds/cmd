@@ -43,11 +43,13 @@
     <Compile Include="Commands\CmdCommando.cs" />
     <Compile Include="Commands\Commando.cs" />
     <Compile Include="Commands\ICommando.cs" />
+    <Compile Include="Commands\PowershellCommando.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Runner\Arguments\Argument.cs" />
     <Compile Include="Runner\Arguments\ArgumentBuilder.cs" />
     <Compile Include="Runner\Arguments\CmdArgumentBuilder.cs" />
     <Compile Include="Runner\Arguments\IArgumentBuilder.cs" />
+    <Compile Include="Runner\Arguments\PowershellArgumentBuilder.cs" />
     <Compile Include="Runner\IRunner.cs" />
     <Compile Include="Runner\IRunOptions.cs" />
     <Compile Include="Runner\RunOptions.cs" />
