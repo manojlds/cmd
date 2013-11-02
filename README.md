@@ -1,6 +1,6 @@
 # cmd #
 
-A C# Library to run external programs / commands in a simpler way. It is inspired from the [sh](https://github.com/amoffat/sh) library for Python.
+A C# Library to run external programs / commands in a simpler way. It is inspired from the [sh](https://github.com/amoffat/sh) library for Python, and is intended to showcase the "dynamic" features of C#
 
 **How to get it?**
 
