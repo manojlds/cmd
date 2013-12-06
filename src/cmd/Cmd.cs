@@ -1,5 +1,4 @@
 ﻿using System.Dynamic;
-using cmd.Commands;
 using cmd.Runner;
 using cmd.Runner.Shells;
 

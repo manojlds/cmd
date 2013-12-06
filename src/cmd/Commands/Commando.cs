@@ -26,7 +26,11 @@ namespace cmd.Commands
 
         public string Arguments
         {
-            get { return string.Join(" ", commands.Skip(1).Concat(arguments.Select(argument => Runner.BuildArgument(argument)).Where(s => !string.IsNullOrEmpty(s)))); }
+            get { 
+                return string.Join(" ", commands.Skip(1)
+                                                .Concat(arguments.Select(argument => Runner.BuildArgument(argument))
+                                                                 .Where(s => !string.IsNullOrEmpty(s)))); 
+            }
         }
 
         public void AddCommand(string command)
