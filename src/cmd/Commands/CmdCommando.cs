@@ -1,4 +1,3 @@
-using System.Collections.Generic;
 using cmd.Runner;
 
 namespace cmd.Commands

@@ -1,4 +1,5 @@
-﻿using Moq;
+﻿using System.Collections.Generic;
+using Moq;
 using NUnit.Framework;
 using cmd.Commands;
 using cmd.Runner;
@@ -56,6 +57,15 @@ namespace cmd.UnitTests
 
             mockRunner.Verify(runner => runner.Run(It.Is<IRunOptions>(options => options.Command == "git")), Times.Once());
             mockRunner.Verify(runner => runner.Run(It.Is<IRunOptions>(options => options.Command == "svn")), Times.Once());
+        }
+
+        [Test]
+        public void ShouldBeAbleToSetEnvironmentVariablesOnCmd()
+        {
+            var environmentDictionary = new Dictionary<string, string> { { "PATH", @"C:\" } };
+            cmd._Env(environmentDictionary);
+
+            mockRunner.VerifySet(runner => runner.EnvironmentVariables = environmentDictionary);
         }
     }
 }

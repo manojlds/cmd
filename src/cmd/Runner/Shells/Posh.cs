@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using cmd.Commands;
 using cmd.Runner.Arguments;
 
@@ -14,6 +15,8 @@ namespace cmd.Runner.Shells
         {
             throw new System.NotImplementedException();
         }
+
+        public IDictionary<string, string> EnvironmentVariables { get; set; }
 
         public ICommando GetCommand()
         {

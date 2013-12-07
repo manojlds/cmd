@@ -1,4 +1,5 @@
-﻿using Moq;
+﻿using System.Collections.Generic;
+using Moq;
 using NUnit.Framework;
 using cmd.Commands;
 using cmd.Runner;
@@ -82,6 +83,12 @@ namespace cmd.UnitTests
         public void ShouldBeAbleToChooseADifferentShell()
         {
             dynamic cmd = new Cmd(Shell.Cmd);
+        }
+
+        [Test]
+        public void ShouldBeAbleToSetEnvironmentVariables()
+        {
+            cmd._Env(new Dictionary<string, string> {{"PATH", @"C:\"}});
         }
     }
 }

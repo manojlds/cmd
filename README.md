@@ -53,6 +53,14 @@ var svnOutput = cmd.svn();
 
 Note that the commands can be case sensitive, and as such `cmd.git` is not same as, say, `cmd.Git`.
 
+**How to set environment variables?**
+
+Environment variables can be set for the process by calling `._Env` method on an instance of Cmd and pass the set of environment variables with their values as a `Dictionary<string, string>`:
+
+```csharp
+cmd._Env(new Dictionary<string, string> { { "GIT_DIR", @"C:\" } });
+```
+
 **Shells**
 
 You can use cmd to run command on, well, cmd and Powershell. Choose the shell you want to use while creating cmd:

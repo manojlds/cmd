@@ -1,4 +1,5 @@
-﻿using cmd.Commands;
+﻿using System.Collections.Generic;
+using cmd.Commands;
 
 namespace cmd.Runner
 {
@@ -6,6 +7,7 @@ namespace cmd.Runner
     {
         string Run(IRunOptions runOptions);
         string BuildArgument(Arguments.Argument argument);
+        IDictionary<string, string> EnvironmentVariables { get; set; }
         ICommando GetCommand();
     }
 }

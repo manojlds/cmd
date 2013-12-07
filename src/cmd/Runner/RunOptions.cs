@@ -4,7 +4,7 @@ namespace cmd.Runner
 {
     internal class RunOptions : IRunOptions
     {
-        public RunOptions(Commando commando)
+        public RunOptions(ICommando commando)
         {
             Command = commando.Command;
             Arguments = commando.Arguments;
