@@ -59,6 +59,8 @@ Environment variables can be set for the process by calling `._Env` method on an
 
 ```csharp
 cmd._Env(new Dictionary<string, string> { { "GIT_DIR", @"C:\" } });
+
+Note that this replaces existing variables with the new values.
 ```
 
 **Shells**
