@@ -1,1 +1,4 @@
 nugetSpecs:   [cmd.nuspec]
+
+conventions:
+    artifactsDir:  "$rootDir/build"
