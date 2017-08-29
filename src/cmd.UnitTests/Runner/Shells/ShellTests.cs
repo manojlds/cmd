@@ -1,28 +1,26 @@
-using NUnit.Framework;
 using cmd.Runner.Shells;
+using Xunit;
 
 namespace cmd.UnitTests.Runner.Shells
 {
-    [TestFixture]
-    class ShellTests
+    public class ShellTests
     {
-        [Test]
+        [Fact]
         public void ShouldReturnAProcessRunnerAsDEfaul()
         {
-            Assert.That(Shell.Default as ProcessRunner, Is.Not.Null);
-        }
-        
-        [Test]
-        public void ShouldReturnACmdShellRunner()
-        {
-            Assert.That(Shell.Cmd as CmdShell, Is.Not.Null);
-        }
-        
-        [Test]
-        public void ShouldReturnAPowerShellRunner()
-        {
-            Assert.That(Shell.Powershell as Posh, Is.Not.Null);
+            Assert.IsAssignableFrom<ProcessRunner>(Shell.Default);
         }
 
+        [Fact]
+        public void ShouldReturnACmdShellRunner()
+        {
+            Assert.IsAssignableFrom<CmdShell>(Shell.Cmd);
+        }
+
+        [Fact]
+        public void ShouldReturnAPowerShellRunner()
+        {
+            Assert.IsAssignableFrom<Posh>(Shell.Powershell);
+        }
     }
 }

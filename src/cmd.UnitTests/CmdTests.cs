@@ -1,34 +1,32 @@
 ﻿using System.Collections.Generic;
 using Moq;
-using NUnit.Framework;
 using cmd.Commands;
 using cmd.Runner;
+using Xunit;
 
 namespace cmd.UnitTests
 {
-    [TestFixture]
     public class CmdTests
     {
         private dynamic cmd;
         private Mock<IRunner> mockRunner;
 
-        [SetUp]
-        public void SetUp()
+        public CmdTests()
         {
             mockRunner = new Mock<IRunner>();
             mockRunner.Setup(runner => runner.GetCommand()).Returns(new Commando(mockRunner.Object));
             cmd = new Cmd(mockRunner.Object);
         }
 
-        [Test]
+        [Fact]
         public void ShouldBeAbleToBuildACommandAsProperty()
         {
             var commando = cmd.git;
-
-            Assert.That(commando, Is.Not.Null);
+            
+            Assert.NotNull(commando);
         }
 
-        [Test]
+        [Fact]
         public void ShouldCreateCommandWithRunner()
         {
             cmd.git();
@@ -36,7 +34,7 @@ namespace cmd.UnitTests
             mockRunner.Verify(runner => runner.Run(It.IsAny<IRunOptions>()), Times.Once());
         }
 
-        [Test]
+        [Fact]
         public void ShouldBeAbleToBuildMultipleCommandsOnCmd()
         {
             mockRunner.Setup(runner => runner.GetCommand()).Returns(new Commando(mockRunner.Object));
@@ -44,10 +42,10 @@ namespace cmd.UnitTests
             mockRunner.Setup(runner => runner.GetCommand()).Returns(new Commando(mockRunner.Object));
             var svn = cmd.svn;
 
-            Assert.That(git, Is.Not.EqualTo(svn));
+            Assert.NotEqual(svn, git);
         }
 
-        [Test]
+        [Fact]
         public void ShouldBeAbleToRunMultipleCommandsOnCmd()
         {
             mockRunner.Setup(runner => runner.GetCommand()).Returns(new Commando(mockRunner.Object));
@@ -59,7 +57,7 @@ namespace cmd.UnitTests
             mockRunner.Verify(runner => runner.Run(It.Is<IRunOptions>(options => options.Command == "svn")), Times.Once());
         }
 
-        [Test]
+        [Fact]
         public void ShouldBeAbleToSetEnvironmentVariablesOnCmd()
         {
             var environmentDictionary = new Dictionary<string, string> { { "PATH", @"C:\" } };

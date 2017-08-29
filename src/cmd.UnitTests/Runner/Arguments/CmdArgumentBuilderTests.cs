@@ -1,28 +1,25 @@
-using NUnit.Framework;
 using cmd.Runner.Arguments;
+using Xunit;
 
 namespace cmd.UnitTests.Runner.Arguments
 {
-    [TestFixture]
     public class CmdArgumentBuilderTests
     {
         private IArgumentBuilder argumentBuilder;
-
-        [SetUp]
-        public void SetUp()
+        
+        public CmdArgumentBuilderTests()
         {
             argumentBuilder = new CmdArgumentBuilder();
         }
 
-        [Test]
+        [Fact]
         public void ShouldSetFlagWithForwardSlash()
         {
             var argument = new Argument("f", null);
 
             var builtArgument = argumentBuilder.Build(argument);
 
-            Assert.That(builtArgument, Is.EqualTo("/f"));
+            Assert.Equal("/f", builtArgument);
         }
-
     }
 }

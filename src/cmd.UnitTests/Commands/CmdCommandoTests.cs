@@ -1,25 +1,23 @@
 using Moq;
-using NUnit.Framework;
 using cmd.Commands;
 using cmd.Runner;
+using Xunit;
 
 namespace cmd.UnitTests.Commands
 {
-    [TestFixture]
     public class CmdCommandoTests
     {
         private Mock<IRunner> mockRunner;
         private dynamic cmd;
 
-        [SetUp]
-        public void SetUp()
+        public CmdCommandoTests()
         {
             mockRunner = new Mock<IRunner>();
             mockRunner.Setup(runner => runner.GetCommand()).Returns(new CmdCommando(mockRunner.Object));
             cmd = new Cmd(mockRunner.Object);
         }
 
-        [Test]
+        [Fact]
         public void ShouldRunTheCommandAgainstCmd()
         {
             IRunOptions expectedRunOptions = null;
@@ -31,8 +29,8 @@ namespace cmd.UnitTests.Commands
 
             cmd.dir();
 
-            Assert.That(expectedRunOptions.Command, Is.EqualTo("cmd"));
-            Assert.That(expectedRunOptions.Arguments, Is.EqualTo("/c dir"));
+            Assert.Equal("cmd", expectedRunOptions.Command);
+            Assert.Equal("/c dir", expectedRunOptions.Arguments);
         }
     }
 }

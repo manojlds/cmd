@@ -1,87 +1,85 @@
-using NUnit.Framework;
 using cmd.Runner.Arguments;
+using Xunit;
 
 namespace cmd.UnitTests.Runner.Arguments
 {
-    [TestFixture]
     public class ArgumentBuilderTests
     {
         private IArgumentBuilder argumentBuilder;
-
-        [SetUp]
-        public void SetUp()
+        
+        public ArgumentBuilderTests()
         {
             argumentBuilder = new ArgumentBuilder();
         }
 
-        [Test]
+        [Fact]
         public void ShouldSetFlagWithSingleHyphenIfOneCharacterFlag()
         {
             var argument = new Argument("f", null);
 
             var builtArgument = argumentBuilder.Build(argument);
 
-            Assert.That(builtArgument, Is.EqualTo("-f"));
+            Assert.Equal("-f", builtArgument);
         }
 
-        [Test]
+        [Fact]
         public void ShouldSetFlagWithDoubleHyphenIfMultisCharacterFlag()
         {
             var argument = new Argument("f1", null);
 
             var builtArgument = argumentBuilder.Build(argument);
 
-            Assert.That(builtArgument, Is.EqualTo("--f1"));
+            Assert.Equal("--f1", builtArgument);
         }
 
-        [Test]
+        [Fact]
         public void ShouldOnlyUseValueIfNoFlagSpecifiedForArgument()
         {
             var argument = new Argument(null, "val");
 
             var builtArgument = argumentBuilder.Build(argument);
 
-            Assert.That(builtArgument, Is.EqualTo("val"));
+            Assert.Equal("val", builtArgument);
         }
 
-        [Test]
+        [Fact]
         public void ShouldOnlyUseTheFlagIfValueIsNotAString()
         {
             var argument = new Argument("flag", true);
 
             var builtArgument = argumentBuilder.Build(argument);
 
-            Assert.That(builtArgument, Is.EqualTo("--flag"));
+            Assert.Equal("--flag", builtArgument);
         }
 
-        [Test]
+        [Fact]
         public void ShouldUseBothFlagAndValueIfValueIsString()
         {
             var argument = new Argument("flag", "val");
 
             var builtArgument = argumentBuilder.Build(argument);
 
-            Assert.That(builtArgument, Is.EqualTo("--flag val"));
+            Assert.Equal("--flag val", builtArgument);
         }
 
-        [Test]
+        [Fact]
         public void ShouldBeNullIfFlagAndValueAreNull()
         {
             var argument = new Argument(null, null);
 
             var builtArgument = argumentBuilder.Build(argument);
 
-            Assert.That(builtArgument, Is.Null);
+            Assert.Null(builtArgument);
         }
 
-        [Test]
+        [Fact]
         public void ShouldBeNullIfFlagIsNullAndValueIsNotString()
         {
             var argument = new Argument(null, new object());
 
             var builtArgument = argumentBuilder.Build(argument);
 
-            Assert.That(builtArgument, Is.Null);
+            Assert.Null(builtArgument);
         }
     }
 }

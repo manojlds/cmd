@@ -1,20 +1,18 @@
 ﻿using System.Collections.Generic;
 using Moq;
-using NUnit.Framework;
 using cmd.Commands;
 using cmd.Runner;
 using cmd.Runner.Shells;
+using Xunit;
 
 namespace cmd.UnitTests
 {
-    [TestFixture]
     public class CmdDslTests
     {
         private dynamic cmd;
         private Mock<IRunner> mockRunner;
 
-        [SetUp]
-        public void SetUp()
+        public CmdDslTests()
         {
             mockRunner = new Mock<IRunner>();
             mockRunner.Setup(runner => runner.Run(It.IsAny<IRunOptions>())).Returns("result");
@@ -22,73 +20,73 @@ namespace cmd.UnitTests
             cmd = new Cmd(mockRunner.Object);
         }
 
-        [Test]
+        [Fact]
         public void ShouldBeAbleToCallArbitraryCommandOnCmd()
         {
             cmd.git();
         }
 
-        [Test]
+        [Fact]
         public void ShouldBeAbleToCallArbitrarySubCommand()
         {
             var clone = cmd.git.clone;
         }
 
-        [Test]
+        [Fact]
         public void ShouldBeAbleToExecuteWithSubCommand()
         {
             cmd.git.Clone();
         }
 
-        [Test]
+        [Fact]
         public void ShouldBeAbleToPassArgumentsToACommand()
         {
             cmd.Git.Clone("http://github.com/manojlds/cmd");
         }
 
-        [Test]
+        [Fact]
         public void ShouldBeAbleToPassFlags()
         {
             cmd.Git.Pull(r: true);
         }
 
-        [Test]
+        [Fact]
         public void ShouldBeAbleToPassArgumentstoFlags()
         {
             cmd.Git.Checkout(b: "master");
         }
 
-        [Test]
+        [Fact]
         public void ShouldBeAbleToPreBuildACommandAndThenExecuteIt()
         {
             var git = cmd.git;
             git.Clone();
         }
 
-        [Test]
+        [Fact]
         public void ShouldBeAbleToBuildMultipleCommandOnCmd()
         {
             var git = cmd.git;
             var svn = cmd.svn;
         }
 
-        [Test]
+        [Fact]
         public void ShouldBeAbleToRunMultipleCommandOnCmd()
         {
             cmd.git();
             cmd.svn();
         }
 
-        [Test]
+        [Fact]
         public void ShouldBeAbleToChooseADifferentShell()
         {
             dynamic cmd = new Cmd(Shell.Cmd);
         }
 
-        [Test]
+        [Fact]
         public void ShouldBeAbleToSetEnvironmentVariables()
         {
-            cmd._Env(new Dictionary<string, string> {{"PATH", @"C:\"}});
+            cmd._Env(new Dictionary<string, string> { { "PATH", @"C:\" } });
         }
     }
 }
