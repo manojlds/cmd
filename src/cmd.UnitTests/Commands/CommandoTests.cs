@@ -1,32 +1,30 @@
 using Moq;
-using NUnit.Framework;
 using cmd.Commands;
 using cmd.Runner;
 using cmd.Runner.Arguments;
+using Xunit;
 
 namespace cmd.UnitTests.Commands
 {
-    [TestFixture]
-    class CommandoTests
+    public class CommandoTests
     {
         private Mock<IRunner> mockRunner;
         private dynamic cmd;
 
-        [SetUp]
-        public void SetUp()
+        public CommandoTests()
         {
             mockRunner = new Mock<IRunner>();
             mockRunner.Setup(runner => runner.GetCommand()).Returns(new Commando(mockRunner.Object));
             cmd = new Cmd(mockRunner.Object);
         }
 
-        [Test]
+        [Fact]
         public void ShouldBeAbleToBuildACommand()
         {
             var command = cmd.git;
         }
 
-        [Test]
+        [Fact]
         public void ShouldBeAbleToRunACommand()
         {
             cmd.git();
@@ -35,24 +33,24 @@ namespace cmd.UnitTests.Commands
                 runner.Run(It.Is<IRunOptions>(options => options.Command == "git" && options.Arguments == string.Empty)), Times.Once());
         }
 
-        [Test]
+        [Fact]
         public void ShouldBeAbleToGetOutputFromCommand()
         {
             mockRunner.Setup(runner => runner.Run(It.IsAny<IRunOptions>())).Returns("out");
 
             var output = cmd.git();
 
-            Assert.That(output, Is.EqualTo("out"));
+            Assert.Equal("out", output);
 
         }
 
-        [Test]
+        [Fact]
         public void ShouldBeAbleToBuildSubCommands()
         {
             var command = cmd.git.clone;
         }
 
-        [Test]
+        [Fact]
         public void ShouldBeAbleToRunWithSubCommand()
         {
             IRunOptions expectedRunOptions = null;
@@ -64,12 +62,12 @@ namespace cmd.UnitTests.Commands
 
             cmd.git.clone();
 
-            Assert.That(expectedRunOptions, Is.Not.Null);
-            Assert.That(expectedRunOptions.Command, Is.EqualTo("git"));
-            Assert.That(expectedRunOptions.Arguments, Is.EqualTo("clone"));
+            Assert.NotNull(expectedRunOptions);
+            Assert.Equal("git", expectedRunOptions.Command);
+            Assert.Equal("clone", expectedRunOptions.Arguments);
         }
 
-        [Test]
+        [Fact]
         public void ShouldBeAbleToRunWithArgumentsOnCommand()
         {
             const string Argument = "--help";
@@ -83,12 +81,12 @@ namespace cmd.UnitTests.Commands
 
             cmd.git(help: true);
 
-            Assert.That(expectedRunOptions, Is.Not.Null);
-            Assert.That(expectedRunOptions.Command, Is.EqualTo("git"));
-            Assert.That(expectedRunOptions.Arguments, Is.EqualTo(Argument));
+            Assert.NotNull(expectedRunOptions);
+            Assert.Equal("git", expectedRunOptions.Command);
+            Assert.Equal(Argument, expectedRunOptions.Arguments);
         }
 
-        [Test]
+        [Fact]
         public void ShouldBeAbleToRunWithArgumentsOnSubCommand()
         {
             const string Argument = "https://github.com/manojlds/cmd";
@@ -103,12 +101,12 @@ namespace cmd.UnitTests.Commands
 
             cmd.git.clone(Argument);
 
-            Assert.That(expectedRunOptions, Is.Not.Null);
-            Assert.That(expectedRunOptions.Command, Is.EqualTo("git"));
-            Assert.That(expectedRunOptions.Arguments, Is.EqualTo(string.Concat("clone ",Argument)));
+            Assert.NotNull(expectedRunOptions);
+            Assert.Equal("git", expectedRunOptions.Command);
+            Assert.Equal(string.Concat("clone ", Argument), expectedRunOptions.Arguments);
         }
 
-        [Test, Ignore]
+        [Fact(Skip = "Not implemented")]
         public void ShouldBeAbleToCallMultipleCommandsWithPreBuiltCommando()
         {
             IRunOptions branchRunOptions = null;
@@ -129,8 +127,8 @@ namespace cmd.UnitTests.Commands
             git.Clone();
             git.branch(async: true);
 
-            Assert.That(branchRunOptions, Is.Not.Null);
-            Assert.That(cloneRunOptions, Is.Not.Null);
+            Assert.NotNull(branchRunOptions);
+            Assert.NotNull(cloneRunOptions);
         }
     }
 }

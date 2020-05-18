@@ -3,19 +3,18 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using Moq;
-using NUnit.Framework;
 using cmd.Commands;
 using cmd.Runner;
+using Xunit;
 
 namespace cmd.UnitTests.Runner.Shells
 {
-    internal class PowershellDSLTests
+    public class PowershellDSLTests
     {
         private dynamic cmd;
         private Mock<IRunner> mockRunner;
-
-        [SetUp]
-        public void SetUp()
+        
+        public PowershellDSLTests()
         {
             mockRunner = new Mock<IRunner>();
             mockRunner.Setup(runner => runner.Run(It.IsAny<IRunOptions>())).Returns("result");
@@ -23,25 +22,25 @@ namespace cmd.UnitTests.Runner.Shells
             cmd = new Cmd(mockRunner.Object);
         }
 
-        [Test]
+        [Fact]
         public void ShouldInvokeACmdlet()
         {
             cmd.Write.Host();
         }
 
-        [Test]
+        [Fact]
         public void ShouldInvokeACmdletWithArgument()
         {
             cmd.Write.Host("test");
         }
 
-        [Test]
+        [Fact]
         public void ShouldInvokeACmdletWithParameter()
         {
             cmd.Write.Host(Object: "test");
         }
 
-        [Test]
+        [Fact]
         public void ShouldInvokeACmdletWithSwitchFlag()
         {
             cmd.Write.Host(NoNewLine: true);

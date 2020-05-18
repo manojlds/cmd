@@ -1,5 +1,5 @@
-﻿using NUnit.Framework;
-using cmd.Runner.Arguments;
+﻿using cmd.Runner.Arguments;
+using Xunit;
 
 namespace cmd.UnitTests.Runner.Arguments
 {
@@ -7,21 +7,19 @@ namespace cmd.UnitTests.Runner.Arguments
     {
         private IArgumentBuilder argumentBuilder;
 
-        [SetUp]
-        public void SetUp()
+        public PowershellArgumentBuilderTests()
         {
             argumentBuilder = new PowershellArgumentBuilder();
         }
 
-        [Test]
+        [Fact]
         public void ShouldSetSwitchFlag()
         {
             var argument = new Argument("Force", null);
 
             var builtArgument = argumentBuilder.Build(argument);
 
-            Assert.That(builtArgument, Is.EqualTo("-Force"));
+            Assert.Equal("-Force", builtArgument);
         }
- 
     }
 }
